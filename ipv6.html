@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPv6 Learning Guide</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #E2E8F0;
+            background: #0f172a; /* Deep tech dark background */
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #1e293b;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-bottom: 3px solid #4ECDC4;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            color: #4ECDC4;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #94a3b8;
+        }
+
+        .content { padding: 40px; }
+
+        nav {
+            background: #0f172a;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            border: 1px solid #334155;
+        }
+
+        nav button {
+            flex: 1;
+            padding: 12px 15px;
+            background: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        nav button:hover, nav button.active {
+            background: #4ECDC4;
+            color: #0f172a;
+            border-color: #4ECDC4;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .section.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            color: #4ECDC4;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 10px;
+        }
+
+        .subsection {
+            margin: 30px 0;
+            padding: 25px;
+            background: #0f172a;
+            border-left: 4px solid #4ECDC4;
+            border-radius: 5px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+        }
+
+        .subsection h3 {
+            color: #FFD166;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .highlight-box {
+            background: rgba(78, 205, 196, 0.1);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+        }
+
+        .warning-box {
+            background: rgba(255, 100, 103, 0.1);
+            border-left: 4px solid #FF6467;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .info-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .info-card:hover { transform: translateY(-5px); border-color: #4ECDC4; }
+
+        .info-card h4 { color: #4ECDC4; font-size: 1.2em; margin-bottom: 10px; }
+        .info-card .big-number { font-size: 2.5em; color: #FFD166; font-weight: bold; margin-bottom: 10px; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #1e293b;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        table th {
+            background: #334155;
+            color: #4ECDC4;
+            padding: 15px;
+            text-align: left;
+        }
+
+        table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #334155;
+            color: #e2e8f0;
+        }
+
+        /* Interactive Animation Area Styles */
+        .anim-workspace {
+            background: #000;
+            color: #4ECDC4;
+            padding: 40px 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            min-height: 350px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid #334155;
+            overflow: hidden;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .controls input {
+            flex: 1;
+            padding: 12px;
+            background: #1e293b;
+            border: 1px solid #4ECDC4;
+            color: white;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-family: monospace;
+            min-width: 300px;
+        }
+
+        .controls button {
+            padding: 12px 25px;
+            background: #4ECDC4;
+            color: #0f172a;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.2s;
+        }
+
+        .controls button:hover { background: #FFD166; }
+
+        /* Address Compression Animation Specifics */
+        .hextet-container {
+            display: flex;
+            font-size: 2em;
+            gap: 5px;
+            margin-top: 30px;
+            font-weight: bold;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .hextet {
+            display: flex;
+            transition: all 0.8s ease;
+        }
+
+        .digit {
+            display: inline-block;
+            transition: all 0.5s ease;
+        }
+
+        .digit.fade-out {
+            color: #334155;
+            transform: scale(0.5);
+            width: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        .colon { color: #94a3b8; margin: 0 2px; transition: all 0.8s ease; }
+        
+        .zero-block.collapse {
+            font-size: 0;
+            opacity: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .double-colon {
+            color: #FFD166;
+            font-size: 1.2em;
+            display: none;
+            animation: popIn 0.5s forwards;
+        }
+
+        /* EUI-64 Animation Specifics */
+        .mac-container {
+            display: flex;
+            font-size: 2em;
+            gap: 10px;
+            margin-top: 20px;
+            align-items: center;
+            height: 100px;
+        }
+
+        .mac-byte {
+            background: #1e293b;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            transition: all 1s ease;
+            position: relative;
+        }
+
+        .fffe-insert {
+            background: #FFD166;
+            color: #0f172a;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(-50px);
+            display: none;
+        }
+
+        .fffe-insert.show {
+            display: block;
+            animation: dropIn 1s forwards;
+        }
+
+        .bit-flip-container {
+            margin-top: 30px;
+            font-size: 1.5em;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .binary-bits {
+            letter-spacing: 5px;
+            font-family: monospace;
+            margin: 15px 0;
+            background: #1e293b;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .bit-target {
+            color: #FF6467;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: all 0.5s;
+        }
+
+        .bit-target.flipped {
+            color: #4ECDC4;
+            transform: scale(1.2);
+        }
+
+        @keyframes dropIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; display: inline-block; }
+            100% { transform: scale(1); opacity: 1; display: inline-block; }
+        }
+
+        /* Exercise Section */
+        .exercise-item {
+            background: #1e293b;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 4px solid #FFD166;
+        }
+        .exercise-item .question { font-weight: bold; font-size: 1.1em; margin-bottom: 10px; }
+        .exercise-item .answer-btn {
+            background: transparent;
+            color: #4ECDC4;
+            border: 1px solid #4ECDC4;
+            padding: 5px 15px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .exercise-item .answer-btn:hover { background: rgba(78, 205, 196, 0.1); }
+        .exercise-item .answer-content {
+            margin-top: 15px;
+            padding: 15px;
+            background: #0f172a;
+            border-radius: 4px;
+            display: none;
+            color: #FFD166;
+            font-family: monospace;
+            font-size: 1.1em;
+        }
+
+        .anim-step-text {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            color: #94a3b8;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌐 IPv6 </h1>
+            <p>From IPv4 to 128-Bit Next-Gen Networking</p>
+        </header>
+
+        <div class="content">
+            <nav>
+                <button class="nav-btn active" data-section="overview">1. The "Why"</button>
+                <button class="nav-btn" data-section="structure">2. Structure & Hextets</button>
+                <button class="nav-btn" data-section="compression">3. Compression Anim</button>
+                <button class="nav-btn" data-section="subnetting">4. /64 Subnetting</button>
+                <button class="nav-btn" data-section="eui64">5. EUI-64 Anim</button>
+                <button class="nav-btn" data-section="types">6. Address Types</button>
+                <button class="nav-btn" data-section="practice">7. Practice</button>
+            </nav>
+
+            <!-- SECTION 1: OVERVIEW -->
+            <div id="overview" class="section active">
+                <h2 class="section-title">The Problem: Why IPv6?</h2>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Old World: IPv4 Limits</h4>
+                        <div class="big-number">4.3 Billion</div>
+                        <p>Total addresses globally. We ran out in 2011. Every phone, smart TV, and IoT device needs an IP.</p>
+                    </div>
+                    <div class="info-card" style="border-color: #4ECDC4;">
+                        <h4>New World: IPv6 Scale</h4>
+                        <div class="big-number" style="font-size: 1.8em;">340 Undecillion</div>
+                        <p>2¹²⁸ total addresses. That is 340,282,366,920,938,463,463,374,607,431,768,211,456. Enough for every atom on Earth's surface.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>NAT Was Only a Temporary Band-Aid 🩹</h3>
+                    <p>In IPv4, we survived exhaustion by using <strong>NAT (Network Address Translation)</strong>. Your entire home shares ONE public IPv4 address, and your router hands out fake private IPs (like 192.168.1.5) to your devices.</p>
+                    <br>
+                    <div class="highlight-box">
+                        <h4 style="color:#FFD166;">The IPv6 Paradigm Shift: True End-to-End Connectivity</h4>
+                        <p>Because IPv6 has nearly infinite addresses, <strong>NAT is no longer required!</strong> Every single device on your network can get its own <em>Globally Unique</em> address. This restores the Internet to its original design: devices communicating directly end-to-end, which improves speed, security (IPsec is built-in), and peer-to-peer applications like VoIP and gaming.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: STRUCTURE -->
+            <div id="structure" class="section">
+                <h2 class="section-title">Fundamental Structure of an IPv6 Address</h2>
+
+                <div class="highlight-box" style="text-align: center; font-size: 1.4em; letter-spacing: 2px; font-family: monospace;">
+                    <span style="color:#4ECDC4">2001</span>:<span style="color:#FFD166">0DB8</span>:<span style="color:#4ECDC4">0000</span>:<span style="color:#FFD166">0000</span>:<span style="color:#4ECDC4">0000</span>:<span style="color:#FFD166">FF00</span>:<span style="color:#4ECDC4">0042</span>:<span style="color:#FFD166">8329</span>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Length</h4>
+                        <p><strong>128 Bits</strong> total.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Format</h4>
+                        <p><strong>Hexadecimal</strong> (0-9 and A-F). Case-insensitive.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Segments</h4>
+                        <p><strong>8 "Hextets"</strong> separated by colons (:). No periods.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>What is a "Hextet"?</h3>
+                    <p>In IPv4, we use 8-bit "Octets". In IPv6, we group numbers into 16-bit blocks called <strong>Hextets</strong> (or quartets).</p>
+                    <ul style="margin-left: 20px; margin-top: 15px;">
+                        <li>1 Hexadecimal Character = <strong>4 binary bits</strong></li>
+                        <li>4 Hex Characters per Hextet = <strong>16 binary bits</strong></li>
+                        <li>8 Hextets × 16 bits = <strong>128 total bits</strong></li>
+                    </ul>
+
+                    <div class="highlight-box" style="margin-top: 20px;">
+                        <p><strong>Binary Breakdown Example (Hextet 1):</strong></p>
+                        <p style="font-family: monospace; font-size: 1.2em; margin-top: 10px;">
+                            <span style="color:#FFD166">2</span> = 0010<br>
+                            <span style="color:#FFD166">0</span> = 0000<br>
+                            <span style="color:#FFD166">0</span> = 0000<br>
+                            <span style="color:#FFD166">1</span> = 0001<br>
+                            Result = <strong>0010 0000 0000 0001</strong> (16 bits)
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: COMPRESSION ANIMATOR -->
+            <div id="compression" class="section">
+                <h2 class="section-title">Address Simplification Rules</h2>
+                
+                <div class="subsection">
+                    <p>Writing out 32 characters is tedious. Network engineers use two strict rules to compress addresses.</p>
+                    
+                    <div class="info-grid">
+                        <div class="info-card" style="border-left: 4px solid #4ECDC4;">
+                            <h4>Rule 1: Omit Leading Zeros</h4>
+                            <p>Within any hextet, you can drop the zeros at the front. <br><code>0DB8</code> → <code>DB8</code><br><code>0042</code> → <code>42</code><br><code>0000</code> → <code>0</code></p>
+                        </div>
+                        <div class="info-card" style="border-left: 4px solid #FFD166;">
+                            <h4>Rule 2: Double Colon (::)</h4>
+                            <p>You can replace one contiguous block of all-zero hextets with a double colon <code>::</code>. <br><strong style="color:#FF6467">CRITICAL: You can only use :: ONCE per address!</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="color:#4ECDC4; margin-bottom: 15px;">Interactive Compression Animator</h3>
+                <div class="controls">
+                    <input type="text" id="ipv6Input" value="2001:0db8:0000:0000:0000:ff00:0042:8329" maxlength="39">
+                    <button onclick="animateCompression()">▶ Run Compression Animation</button>
+                </div>
+
+                <div class="anim-workspace">
+                    <div id="compContainer" class="hextet-container">
+                        <!-- Hextets generated by JS -->
+                    </div>
+                    <div id="compStepText" class="anim-step-text">Enter a valid 8-hextet IPv6 address and click Run.</div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: SUBNETTING -->
+            <div id="subnetting" class="section">
+                <h2 class="section-title">The /64 Split: Network vs Interface</h2>
+
+                <div class="subsection">
+                    <h3>The Standard /64 Prefix</h3>
+                    <p>In IPv6, the standard subnet mask for end-user networks is almost always <strong>/64</strong>. It splits the massive 128-bit address exactly in half.</p>
+
+                    <div style="display: flex; width: 100%; height: 50px; margin: 30px 0; border-radius: 8px; overflow: hidden; font-weight: bold; text-align: center; line-height: 50px;">
+                        <div style="width: 50%; background: #4ECDC4; color: #0f172a;">First 64 Bits: Network Prefix</div>
+                        <div style="width: 50%; background: #FFD166; color: #0f172a;">Last 64 Bits: Interface ID (Host)</div>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h4 style="color:#4ECDC4">Network Prefix (Left 64)</h4>
+                            <p>Usually made up of:</p>
+                            <ul>
+                                <li><strong>Global Routing Prefix:</strong> Assigned by your ISP (often a /48 block)</li>
+                                <li><strong>Subnet ID:</strong> 16 bits you use to create 65,536 internal subnets.</li>
+                            </ul>
+                        </div>
+                        <div class="info-card">
+                            <h4 style="color:#FFD166">Interface ID (Right 64)</h4>
+                            <p>Identifies the exact physical device. This can be:</p>
+                            <ul>
+                                <li>Automatically generated from the MAC address (EUI-64)</li>
+                                <li>Randomized for privacy (Privacy Extensions)</li>
+                                <li>Manually assigned statically.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 5: EUI-64 ANIMATOR -->
+            <div id="eui64" class="section">
+                <h2 class="section-title">EUI-64: Auto-Generating the Interface ID</h2>
+
+                <div class="subsection">
+                    <p><strong>EUI-64</strong> is a method where a device automatically generates its own 64-bit Interface ID by mathematically altering its 48-bit MAC address. Because MAC addresses are globally unique, the resulting IPv6 host ID is globally unique.</p>
+                    
+                    <div class="info-grid" style="margin-top: 20px;">
+                        <div class="info-card"><strong>Step 1:</strong> Split the 48-bit MAC address directly in half.</div>
+                        <div class="info-card"><strong>Step 2:</strong> Insert the 16-bit hex value <code>FFFE</code> into the exact middle.</div>
+                        <div class="info-card"><strong>Step 3:</strong> Convert the first byte to binary and <em>invert the 7th bit</em> (Universal/Local bit).</div>
+                    </div>
+                </div>
+
+                <h3 style="color:#4ECDC4; margin-bottom: 15px;">Interactive EUI-64 Animator</h3>
+                <div class="controls">
+                    <input type="text" id="macInput" value="FC:99:47:75:CE:E0" placeholder="e.g. FC:99:47:75:CE:E0" maxlength="17">
+                    <button onclick="animateEUI64()">▶ Generate EUI-64</button>
+                </div>
+
+                <div class="anim-workspace" style="min-height: 450px;">
+                    <div id="macBox" class="mac-container"></div>
+                    <div id="euiStepText" class="anim-step-text">Enter a valid MAC address and click Generate.</div>
+                    
+                    <!-- Binary flip container -->
+                    <div id="bitFlipBox" class="bit-flip-container">
+                        <div style="color: #94a3b8; font-size: 0.8em;">Modifying 1st Byte: <span id="origByteStr" style="color:white;"></span></div>
+                        <div id="binaryStr" class="binary-bits"></div>
+                        <div id="newByteStr" style="color: #4ECDC4; font-weight: bold; font-size: 1.5em; display: none;"></div>
+                    </div>
+                </div>
+                
+                <div class="warning-box" style="margin-top: 20px;">
+                    <strong>Privacy Note:</strong> Because EUI-64 embeds your permanent hardware MAC address into your public IP, modern OSs (Windows/macOS/iOS) now use <em>Randomized Interface IDs</em> by default to prevent tracking. However, EUI-64 is still heavily tested in certifications and used on router/switch infrastructure!
+                </div>
+            </div>
+
+            <!-- SECTION 6: ADDRESS TYPES -->
+            <div id="types" class="section">
+                <h2 class="section-title">Core IPv6 Address Types</h2>
+
+                <table>
+                    <tr>
+                        <th width="20%">Type</th>
+                        <th width="20%">Prefix / Range</th>
+                        <th>Description / IPv4 Equivalent</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Global Unicast</strong></td>
+                        <td style="color:#4ECDC4; font-family:monospace;">2000::/3</td>
+                        <td>Globally unique, routable on the public Internet. Replaces Public IPv4 addresses. <em>(Starts with 2 or 3)</em>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Link-Local</strong></td>
+                        <td style="color:#4ECDC4; font-family:monospace;">FE80::/10</td>
+                        <td>Auto-configured on EVERY interface. Only routable on the local subnet. Routers will drop these packets. Replaces APIPA (169.254.x.x).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Multicast</strong></td>
+                        <td style="color:#4ECDC4; font-family:monospace;">FF00::/8</td>
+                        <td>One-to-many communication. Replaces IPv4 Broadcasts (which no longer exist in IPv6).<br>
+                        <em>FF02::1 = All Nodes, FF02::2 = All Routers.</em></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Loopback</strong></td>
+                        <td style="color:#4ECDC4; font-family:monospace;">::1/128</td>
+                        <td>Used by a device to send traffic to itself for testing. Equivalent to IPv4 127.0.0.1.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Unspecified</strong></td>
+                        <td style="color:#4ECDC4; font-family:monospace;">::/128</td>
+                        <td>All zeros. Used exclusively as a source address when a device is booting up and requesting an IP via DHCPv6. Equivalent to 0.0.0.0.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- SECTION 7: PRACTICE -->
+            <div id="practice" class="section">
+                <h2 class="section-title">Knowledge Check</h2>
+
+                <div class="exercise-item">
+                    <div class="question">1. Compress this address: 2001:0000:0000:0000:000A:0000:0000:0001</div>
+                    <button class="answer-btn" onclick="toggleAns('ans1')">Show Answer</button>
+                    <div id="ans1" class="answer-content">
+                        <strong>2001::A:0:0:1</strong>
+                        <br><br>
+                        Explanation: We apply the `::` to the longest stretch of zeros (the first 3 zero hextets). The second set of zeros must be written as 0:0 to avoid using `::` twice. Leading zeros in 000A become A.
+                    </div>
+                </div>
+
+                <div class="exercise-item">
+                    <div class="question">2. What type of IPv6 address is FE80::1?</div>
+                    <button class="answer-btn" onclick="toggleAns('ans2')">Show Answer</button>
+                    <div id="ans2" class="answer-content">
+                        <strong>Link-Local Address</strong>
+                        <br><br>
+                        Explanation: Any address starting with FE80 is Link-Local, meaning it is only valid for communication on the local network segment.
+                    </div>
+                </div>
+
+                <div class="exercise-item">
+                    <div class="question">3. What is the standard network prefix size for an end-user IPv6 subnet?</div>
+                    <button class="answer-btn" onclick="toggleAns('ans3')">Show Answer</button>
+                    <div id="ans3" class="answer-content">
+                        <strong>/64</strong>
+                        <br><br>
+                        Explanation: A /64 leaves exactly 64 bits for the Interface ID, which is required for SLAAC and EUI-64 auto-configuration to function correctly.
+                    </div>
+                </div>
+
+                 <div class="exercise-item">
+                    <div class="question">4. Why does IPv6 eliminate the need for NAT?</div>
+                    <button class="answer-btn" onclick="toggleAns('ans4')">Show Answer</button>
+                    <div id="ans4" class="answer-content">
+                        With 340 undecillion possible addresses, every device on Earth can have its own Global Unicast Address. We no longer need to "hide" private devices behind a single public router IP.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- Navigation Logic ---
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById(sectionId).classList.add('active');
+                this.classList.add('active');
+            });
+        });
+
+        // --- Practice Toggle ---
+        function toggleAns(id) {
+            const el = document.getElementById(id);
+            el.style.display = el.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // --- Sleep Helper for Animations ---
+        const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+        // --- ANIMATION 1: COMPRESSION ---
+        async function animateCompression() {
+            let rawInput = document.getElementById('ipv6Input').value.trim();
+            const container = document.getElementById('compContainer');
+            const text = document.getElementById('compStepText');
+            
+            container.innerHTML = '';
+            
+            // Clean input and split
+            let blocks = rawInput.split(':');
+            if(blocks.length !== 8) {
+                text.innerText = "Error: Please enter a full 8-hextet address (e.g., 2001:0db8:0000:0000:0000:ff00:0042:8329)";
+                text.style.color = "#FF6467";
+                return;
+            }
+
+            text.style.color = "#94a3b8";
+            text.innerText = "Parsing 128-bit address into 8 hextets...";
+
+            // Build DOM elements for hextets
+            let hexDivs = [];
+            for (let i=0; i<8; i++) {
+                // pad with zeros if user short-handed it
+                let hexStr = blocks[i].padStart(4, '0').toLowerCase();
+                let blockDiv = document.createElement('div');
+                blockDiv.className = 'hextet';
+                
+                // create spans for each digit so we can target leading zeros
+                let isLeading = true;
+                let digitSpans = [];
+                for(let j=0; j<4; j++) {
+                    let d = document.createElement('span');
+                    d.className = 'digit';
+                    d.innerText = hexStr[j].toUpperCase();
+                    // mark if it's a leading zero, but keep at least 1 zero if block is all zeros
+                    if (hexStr[j] === '0' && isLeading && j < 3) {
+                        d.dataset.leading = 'true';
+                    } else {
+                        isLeading = false;
+                    }
+                    digitSpans.push(d);
+                    blockDiv.appendChild(d);
+                }
+                
+                hexDivs.push({ container: blockDiv, digits: digitSpans, isZeroBlock: hexStr === '0000' });
+                container.appendChild(blockDiv);
+
+                if (i < 7) {
+                    let c = document.createElement('div');
+                    c.className = 'colon';
+                    c.innerText = ':';
+                    container.appendChild(c);
+                }
+            }
+
+            await sleep(1500);
+
+            // Step 1: Omit Leading Zeros
+            text.innerText = "Rule 1: Omitting Leading Zeros...";
+            text.style.color = "#FFD166";
+            
+            for (let b of hexDivs) {
+                for (let d of b.digits) {
+                    if (d.dataset.leading === 'true') {
+                        d.style.color = "#FF6467"; // highlight zero to drop
+                    }
+                }
+            }
+            
+            await sleep(1500);
+
+            for (let b of hexDivs) {
+                for (let d of b.digits) {
+                    if (d.dataset.leading === 'true') {
+                        d.classList.add('fade-out');
+                    }
+                }
+            }
+
+            await sleep(1500);
+
+            // Find longest sequence of zero blocks for Rule 2
+            let maxZeroLen = 0;
+            let maxZeroStart = -1;
+            let currZeroLen = 0;
+            let currZeroStart = -1;
+
+            for (let i=0; i<8; i++) {
+                if (hexDivs[i].isZeroBlock) {
+                    if (currZeroLen === 0) currZeroStart = i;
+                    currZeroLen++;
+                    if (currZeroLen > maxZeroLen) {
+                        maxZeroLen = currZeroLen;
+                        maxZeroStart = currZeroStart;
+                    }
+                } else {
+                    currZeroLen = 0;
+                }
+            }
+
+            // Step 2: Double Colon
+            if (maxZeroLen > 1) {
+                text.innerText = `Rule 2: Found longest sequence of ${maxZeroLen} zero hextets. Replacing with Double Colon (::)...`;
+                text.style.color = "#4ECDC4";
+
+                // Highlight target blocks
+                for(let i = maxZeroStart; i < maxZeroStart + maxZeroLen; i++) {
+                    hexDivs[i].container.style.color = "#FF6467";
+                }
+
+                await sleep(1500);
+
+                // Collapse them
+                for(let i = maxZeroStart; i < maxZeroStart + maxZeroLen; i++) {
+                    hexDivs[i].container.classList.add('collapse');
+                    // hide adjacent colon
+                    if(i > 0) container.children[i*2 - 1].classList.add('collapse');
+                }
+                
+                // Insert double colon symbol visually at the insertion point
+                let doubleColon = document.createElement('div');
+                doubleColon.className = 'double-colon';
+                doubleColon.innerText = '::';
+                
+                // insert before the start block
+                container.insertBefore(doubleColon, hexDivs[maxZeroStart].container);
+
+                await sleep(1000);
+                text.innerText = "Compression Complete!";
+            } else {
+                text.innerText = "No sequence of multiple zero hextets found. Rule 2 skipped. Compression Complete!";
+                text.style.color = "#4ECDC4";
+            }
+        }
+
+        // --- ANIMATION 2: EUI-64 ---
+        async function animateEUI64() {
+            let rawInput = document.getElementById('macInput').value.trim().toUpperCase();
+            const container = document.getElementById('macBox');
+            const text = document.getElementById('euiStepText');
+            const flipBox = document.getElementById('bitFlipBox');
+            
+            // reset
+            container.innerHTML = '';
+            flipBox.style.opacity = 0;
+            document.getElementById('newByteStr').style.display = 'none';
+
+            let parts = rawInput.split(':');
+            if(parts.length !== 6) {
+                text.innerText = "Error: Enter a valid 48-bit MAC address (e.g. FC:99:47:75:CE:E0)";
+                text.style.color = "#FF6467";
+                return;
+            }
+
+            text.innerText = "Loading 48-bit MAC Address...";
+            text.style.color = "#94a3b8";
+
+            let bytes = [];
+            for (let i=0; i<6; i++) {
+                let d = document.createElement('div');
+                d.className = 'mac-byte';
+                d.innerText = parts[i];
+                bytes.push(d);
+                container.appendChild(d);
+            }
+
+            await sleep(1500);
+
+            // Step 1: Split
+            text.innerText = "Step 1: Split the MAC address directly in half (OUI vs Device ID)";
+            text.style.color = "#FFD166";
+            
+            // shift left 3 left, right 3 right
+            for(let i=0; i<3; i++) bytes[i].style.transform = "translateX(-20px)";
+            for(let i=3; i<6; i++) bytes[i].style.transform = "translateX(20px)";
+
+            await sleep(1500);
+
+            // Step 2: Insert FFFE
+            text.innerText = "Step 2: Insert 16-bit identifier (FF:FE) into the middle";
+            
+            let fffe = document.createElement('div');
+            fffe.className = 'fffe-insert';
+            fffe.innerText = 'FF:FE';
+            container.insertBefore(fffe, bytes[3]);
+
+            await sleep(100);
+            fffe.classList.add('show');
+            
+            await sleep(2000);
+
+            // Step 3: Invert 7th Bit
+            text.innerText = "Step 3: Isolate the first byte and invert the 7th binary bit (Universal/Local)";
+            text.style.color = "#4ECDC4";
+
+            bytes[0].style.borderColor = "#FF6467";
+            bytes[0].style.boxShadow = "0 0 15px rgba(255, 100, 103, 0.5)";
+
+            await sleep(1500);
+
+            // Calculate binary logic
+            let firstByteHex = parts[0];
+            let firstByteDec = parseInt(firstByteHex, 16);
+            let binStr = firstByteDec.toString(2).padStart(8, '0');
+            
+            document.getElementById('origByteStr').innerText = firstByteHex + " (Hex)";
+            
+            let binHTML = "";
+            for(let i=0; i<8; i++) {
+                if(i === 6) binHTML += `<span class="bit-target" id="targetBit">${binStr[i]}</span>`;
+                else binHTML += `<span>${binStr[i]}</span>`;
+            }
+            
+            document.getElementById('binaryStr').innerHTML = binHTML;
+            flipBox.style.opacity = 1;
+
+            await sleep(2000);
+
+            // FLIP the bit
+            let target = document.getElementById('targetBit');
+            let currentBit = parseInt(target.innerText);
+            let newBit = currentBit === 1 ? 0 : 1;
+            
+            target.innerText = newBit;
+            target.classList.add('flipped');
+
+            // Recalculate
+            let newBinStr = binStr.substring(0, 6) + newBit + binStr.substring(7);
+            let newDec = parseInt(newBinStr, 2);
+            let newHex = newDec.toString(16).toUpperCase().padStart(2, '0');
+
+            await sleep(1500);
+            
+            let newHexUI = document.getElementById('newByteStr');
+            newHexUI.innerText = `New Hex Value: ${newHex}`;
+            newHexUI.style.display = 'block';
+
+            await sleep(1500);
+
+            // Update UI with final result
+            bytes[0].innerText = newHex;
+            bytes[0].style.borderColor = "#4ECDC4";
+            bytes[0].style.color = "#4ECDC4";
+            bytes[0].style.boxShadow = "none";
+            
+            flipBox.style.opacity = 0;
+
+            await sleep(1000);
+
+            // Reassemble
+            for(let i=0; i<3; i++) bytes[i].style.transform = "translateX(0)";
+            for(let i=3; i<6; i++) bytes[i].style.transform = "translateX(0)";
+            
+            text.innerText = "Final 64-bit EUI-64 Interface ID generated successfully!";
+            text.style.color = "#4ECDC4";
+        }
+
+    </script>
+</body>
+</html>
