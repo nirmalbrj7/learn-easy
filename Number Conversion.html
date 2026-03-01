@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Systems Conversion - Complete Learning Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        nav {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s;
+        }
+
+        nav button:hover, nav button.active {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .subsection {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+
+        .subsection h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .example-box {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 2px solid #667eea;
+        }
+
+        .example-box strong {
+            color: #764ba2;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .conversion-method {
+            background: #fff3cd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .conversion-method h4 {
+            color: #ff8c00;
+            margin-bottom: 10px;
+        }
+
+        .step {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 3px;
+        }
+
+        .step strong {
+            color: #667eea;
+        }
+
+        .converter {
+            background: #e8f4f8;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .converter h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #764ba2;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .button-group button {
+            flex: 1;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .button-group button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .result {
+            background: white;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            border: 2px solid #667eea;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .result-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 3px;
+        }
+
+        .exercise-section {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .exercise-item {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 4px solid #764ba2;
+        }
+
+        .exercise-item .question {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .exercise-item .answer {
+            background: #e8f4f8;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            color: #667eea;
+        }
+
+        .exercise-item .answer.hidden {
+            display: none;
+        }
+
+        .key-concept {
+            background: #e3f2fd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 4px solid #2196F3;
+        }
+
+        .key-concept strong {
+            color: #1976D2;
+        }
+
+        .flow-chart {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .flow-item {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+
+        .arrow {
+            display: inline-block;
+            color: #667eea;
+            font-size: 1.5em;
+            margin: 0 5px;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+
+        .power-table {
+            margin: 20px 0;
+        }
+
+        .comparison-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-card {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .comparison-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .comparison-card .base-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #764ba2;
+        }
+
+        /* NEW ANIMATION SECTION STYLES */
+        .anim-controls {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            margin-bottom: 30px;
+            border: 2px solid #667eea;
+        }
+
+        .anim-workspace {
+            background: #2b2b2b;
+            color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2em;
+            min-height: 300px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .div-row {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            margin: 5px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .div-row.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .div-divisor {
+            width: 60px;
+            text-align: right;
+            padding-right: 15px;
+            font-weight: bold;
+            color: #64b5f6;
+        }
+
+        .div-number {
+            width: 100px;
+            border-left: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            padding: 5px 15px;
+            text-align: right;
+        }
+
+        .div-remainder {
+            margin-left: 30px;
+            color: #ef5350;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .div-remainder::before {
+            content: "--- Remainder: ";
+            color: #888;
+            font-weight: normal;
+        }
+
+        .read-up-arrow {
+            display: none; /* toggled via JS */
+            position: absolute;
+            right: 10%;
+            top: 20%;
+            bottom: 20%;
+            width: 40px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            color: #ef5350;
+            font-weight: bold;
+            font-family: sans-serif;
+            animation: slideUp 1s forwards;
+        }
+
+        .read-up-arrow .line {
+            width: 4px;
+            height: 100%;
+            background: #ef5350;
+        }
+
+        .read-up-arrow .head {
+            width: 0; 
+            height: 0; 
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 20px solid #ef5350;
+            margin-bottom: -2px;
+        }
+
+        .read-up-arrow span {
+            position: absolute;
+            white-space: nowrap;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ef5350;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .final-animation-result {
+            margin-top: 30px;
+            font-size: 1.5em;
+            color: #4db6ac;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .final-animation-result.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8em; }
+            .content { padding: 20px; }
+            nav { flex-direction: column; }
+            nav button { width: 100%; }
+            table { font-size: 0.9em; }
+            table th, table td { padding: 8px; }
+            .anim-workspace { padding: 20px; font-size: 1em; }
+            .read-up-arrow { right: 5%; }
+            .read-up-arrow span { font-size: 0.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔢 Number Systems Conversion Guide</h1>
+            <p>Binary, Octal, Decimal, and Hexadecimal Conversions</p>
+        </header>
+
+        <div class="content">
+            <nav>
+                <button class="nav-btn active" data-section="overview">Overview</button>
+                <button class="nav-btn" data-section="concepts">Concepts</button>
+                <button class="nav-btn" data-section="binary">Binary</button>
+                <button class="nav-btn" data-section="octal">Octal</button>
+                <button class="nav-btn" data-section="hexadecimal">Hexadecimal</button>
+                <button class="nav-btn" data-section="animated-division">🎓 Animated Division</button>
+                <button class="nav-btn" data-section="conversions">Conversions</button>
+                <button class="nav-btn" data-section="converter">Converter Tool</button>
+                <button class="nav-btn" data-section="exercises">Exercises</button>
+            </nav>
+
+            <!-- OVERVIEW SECTION -->
+            <div id="overview" class="section active">
+                <h2 class="section-title">Overview: Number Systems</h2>
+
+                <div class="key-concept">
+                    <strong>What are Number Systems?</strong>
+                    <p>A number system is a method of representing numbers using a base (radix). The base determines how many unique digits are available and how place values work.</p>
+                </div>
+
+                <div class="comparison-table">
+                    <div class="comparison-card">
+                        <h4>📊 Decimal (Base 10)</h4>
+                        <div class="base-value">10</div>
+                        <p>Digits: 0-9</p>
+                        <p>Used in: Everyday mathematics</p>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>📊 Binary (Base 2)</h4>
+                        <div class="base-value">2</div>
+                        <p>Digits: 0-1</p>
+                        <p>Used in: Computer systems</p>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>📊 Octal (Base 8)</h4>
+                        <div class="base-value">8</div>
+                        <p>Digits: 0-7</p>
+                        <p>Used in: Unix permissions</p>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>📊 Hexadecimal (Base 16)</h4>
+                        <div class="base-value">16</div>
+                        <p>Digits: 0-9, A-F</p>
+                        <p>Used in: Memory addresses, colors</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Quick Comparison Table</h3>
+                    <table>
+                        <tr>
+                            <th>System</th>
+                            <th>Base</th>
+                            <th>Digits Used</th>
+                            <th>Example (Decimal 10)</th>
+                            <th>Use Case</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Binary</strong></td>
+                            <td>2</td>
+                            <td>0, 1</td>
+                            <td>1010</td>
+                            <td>Computer memory, digital logic</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Octal</strong></td>
+                            <td>8</td>
+                            <td>0-7</td>
+                            <td>12</td>
+                            <td>Unix file permissions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Decimal</strong></td>
+                            <td>10</td>
+                            <td>0-9</td>
+                            <td>10</td>
+                            <td>Human arithmetic, everyday use</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hexadecimal</strong></td>
+                            <td>16</td>
+                            <td>0-9, A-F</td>
+                            <td>A</td>
+                            <td>Memory addresses, color codes</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CONCEPTS SECTION -->
+            <div id="concepts" class="section">
+                <h2 class="section-title">Core Concepts: Positional Notation</h2>
+
+                <div class="subsection">
+                    <h3>Understanding Positional Notation</h3>
+                    <p>In any number system, the position of a digit determines its value. Each position represents a power of the base.</p>
+
+                    <div class="key-concept">
+                        <strong>Formula: (Digit × Base^Position) + (Digit × Base^Position) + ...</strong>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Example: Decimal Number 345</h3>
+                        <div class="example-box">
+                            <p>345 = 3 × 10² + 4 × 10¹ + 5 × 10⁰</p>
+                            <p>= 3 × 100 + 4 × 10 + 5 × 1</p>
+                            <p>= 300 + 40 + 5</p>
+                            <p><strong>= 345</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Example: Binary Number 1101</h3>
+                        <div class="example-box">
+                            <p>1101₂ = 1 × 2³ + 1 × 2² + 0 × 2¹ + 1 × 2⁰</p>
+                            <p>= 1 × 8 + 1 × 4 + 0 × 2 + 1 × 1</p>
+                            <p>= 8 + 4 + 0 + 1</p>
+                            <p><strong>= 13₁₀</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Power Reference Table</h3>
+                    <table>
+                        <tr>
+                            <th>Position</th>
+                            <th>Power</th>
+                            <th>Binary (2^n)</th>
+                            <th>Octal (8^n)</th>
+                            <th>Decimal (10^n)</th>
+                            <th>Hex (16^n)</th>
+                        </tr>
+                        <tr>
+                            <td>0 (rightmost)</td>
+                            <td>^0</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>^1</td>
+                            <td>2</td>
+                            <td>8</td>
+                            <td>10</td>
+                            <td>16</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>^2</td>
+                            <td>4</td>
+                            <td>64</td>
+                            <td>100</td>
+                            <td>256</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>^3</td>
+                            <td>8</td>
+                            <td>512</td>
+                            <td>1000</td>
+                            <td>4096</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>^4</td>
+                            <td>16</td>
+                            <td>4096</td>
+                            <td>10000</td>
+                            <td>65536</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- BINARY SECTION -->
+            <div id="binary" class="section">
+                <h2 class="section-title">Binary System (Base 2)</h2>
+
+                <div class="subsection">
+                    <h3>Understanding Binary</h3>
+                    <p><strong>Binary</strong> uses only two digits: <strong>0</strong> and <strong>1</strong></p>
+                    <p>Every position represents a power of 2, doubling from right to left.</p>
+
+                    <div class="key-concept">
+                        <strong>Powers of 2:</strong> 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024...
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Binary Position Chart</h3>
+                        <table>
+                            <tr>
+                                <th>Position</th>
+                                <th>8</th>
+                                <th>4</th>
+                                <th>2</th>
+                                <th>1</th>
+                            </tr>
+                            <tr>
+                                <th>Power of 2</th>
+                                <td>2³</td>
+                                <td>2²</td>
+                                <td>2¹</td>
+                                <td>2⁰</td>
+                            </tr>
+                            <tr style="background: #e8f4f8;">
+                                <th>Example: 1101</th>
+                                <td><strong>1</strong></td>
+                                <td><strong>1</strong></td>
+                                <td><strong>0</strong></td>
+                                <td><strong>1</strong></td>
+                            </tr>
+                            <tr>
+                                <th>Multiply</th>
+                                <td>1 × 8</td>
+                                <td>1 × 4</td>
+                                <td>0 × 2</td>
+                                <td>1 × 1</td>
+                            </tr>
+                            <tr style="background: #fff3cd;">
+                                <th>= Result</th>
+                                <td colspan="4"><strong>8 + 4 + 0 + 1 = 13</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Common Binary Values</h3>
+                    <table>
+                        <tr>
+                            <th>Binary</th>
+                            <th>Decimal</th>
+                            <th>Binary</th>
+                            <th>Decimal</th>
+                        </tr>
+                        <tr>
+                            <td>0000</td>
+                            <td>0</td>
+                            <td>1000</td>
+                            <td>8</td>
+                        </tr>
+                        <tr>
+                            <td>0001</td>
+                            <td>1</td>
+                            <td>1001</td>
+                            <td>9</td>
+                        </tr>
+                        <tr>
+                            <td>0010</td>
+                            <td>2</td>
+                            <td>1010</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <td>0011</td>
+                            <td>3</td>
+                            <td>1011</td>
+                            <td>11</td>
+                        </tr>
+                        <tr>
+                            <td>0100</td>
+                            <td>4</td>
+                            <td>1100</td>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <td>0101</td>
+                            <td>5</td>
+                            <td>1101</td>
+                            <td>13</td>
+                        </tr>
+                        <tr>
+                            <td>0110</td>
+                            <td>6</td>
+                            <td>1110</td>
+                            <td>14</td>
+                        </tr>
+                        <tr>
+                            <td>0111</td>
+                            <td>7</td>
+                            <td>1111</td>
+                            <td>15</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>Why Binary in Computing?</h3>
+                    <p>Computers use binary because:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Easy to represent with electronics (on/off, 1/0)</li>
+                        <li>Simple logic operations (AND, OR, NOT)</li>
+                        <li>All data is ultimately stored as binary</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- OCTAL SECTION -->
+            <div id="octal" class="section">
+                <h2 class="section-title">Octal System (Base 8)</h2>
+
+                <div class="subsection">
+                    <h3>Understanding Octal</h3>
+                    <p><strong>Octal</strong> uses eight digits: <strong>0, 1, 2, 3, 4, 5, 6, 7</strong></p>
+                    <p>Each position represents a power of 8.</p>
+
+                    <div class="key-concept">
+                        <strong>Powers of 8:</strong> 1, 8, 64, 512, 4096...
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Octal Position Chart</h3>
+                        <table>
+                            <tr>
+                                <th>Position</th>
+                                <th>512</th>
+                                <th>64</th>
+                                <th>8</th>
+                                <th>1</th>
+                            </tr>
+                            <tr>
+                                <th>Power of 8</th>
+                                <td>8³</td>
+                                <td>8²</td>
+                                <td>8¹</td>
+                                <td>8⁰</td>
+                            </tr>
+                            <tr style="background: #e8f4f8;">
+                                <th>Example: 1567</th>
+                                <td><strong>1</strong></td>
+                                <td><strong>5</strong></td>
+                                <td><strong>6</strong></td>
+                                <td><strong>7</strong></td>
+                            </tr>
+                            <tr>
+                                <th>Multiply</th>
+                                <td>1 × 512</td>
+                                <td>5 × 64</td>
+                                <td>6 × 8</td>
+                                <td>7 × 1</td>
+                            </tr>
+                            <tr style="background: #fff3cd;">
+                                <th>= Result</th>
+                                <td colspan="4"><strong>512 + 320 + 48 + 7 = 887₁₀</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Octal-to-Binary Quick Reference</h3>
+                    <p>Tip: Each octal digit = 3 binary digits</p>
+                    <table>
+                        <tr>
+                            <th>Octal</th>
+                            <th>Binary (3 bits)</th>
+                            <th>Octal</th>
+                            <th>Binary (3 bits)</th>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>000</td>
+                            <td>4</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>001</td>
+                            <td>5</td>
+                            <td>101</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>010</td>
+                            <td>6</td>
+                            <td>110</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>011</td>
+                            <td>7</td>
+                            <td>111</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>Octal Use Cases</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Unix/Linux file permissions (rwx = octal digits)</li>
+                        <li>Compact representation of binary numbers</li>
+                        <li>Legacy systems and programming</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- HEXADECIMAL SECTION -->
+            <div id="hexadecimal" class="section">
+                <h2 class="section-title">Hexadecimal System (Base 16)</h2>
+
+                <div class="subsection">
+                    <h3>Understanding Hexadecimal</h3>
+                    <p><strong>Hexadecimal</strong> uses sixteen digits: <strong>0-9 and A-F</strong></p>
+                    <p>A=10, B=11, C=12, D=13, E=14, F=15</p>
+
+                    <div class="key-concept">
+                        <strong>Powers of 16:</strong> 1, 16, 256, 4096, 65536...
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Hexadecimal Position Chart</h3>
+                        <table>
+                            <tr>
+                                <th>Position</th>
+                                <th>4096</th>
+                                <th>256</th>
+                                <th>16</th>
+                                <th>1</th>
+                            </tr>
+                            <tr>
+                                <th>Power of 16</th>
+                                <td>16³</td>
+                                <td>16²</td>
+                                <td>16¹</td>
+                                <td>16⁰</td>
+                            </tr>
+                            <tr style="background: #e8f4f8;">
+                                <th>Example: 1A5F</th>
+                                <td><strong>1</strong></td>
+                                <td><strong>A</strong></td>
+                                <td><strong>5</strong></td>
+                                <td><strong>F</strong></td>
+                            </tr>
+                            <tr>
+                                <th>Decimal Value</th>
+                                <td>1</td>
+                                <td>10</td>
+                                <td>5</td>
+                                <td>15</td>
+                            </tr>
+                            <tr>
+                                <th>Multiply</th>
+                                <td>1 × 4096</td>
+                                <td>10 × 256</td>
+                                <td>5 × 16</td>
+                                <td>15 × 1</td>
+                            </tr>
+                            <tr style="background: #fff3cd;">
+                                <th>= Result</th>
+                                <td colspan="4"><strong>4096 + 2560 + 80 + 15 = 6751₁₀</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Hexadecimal Digit Reference</h3>
+                    <table>
+                        <tr>
+                            <th>Hex</th>
+                            <th>Decimal</th>
+                            <th>Binary</th>
+                            <th>Hex</th>
+                            <th>Decimal</th>
+                            <th>Binary</th>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0000</td>
+                            <td>8</td>
+                            <td>8</td>
+                            <td>1000</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>0001</td>
+                            <td>9</td>
+                            <td>9</td>
+                            <td>1001</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>0010</td>
+                            <td>A</td>
+                            <td>10</td>
+                            <td>1010</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>3</td>
+                            <td>0011</td>
+                            <td>B</td>
+                            <td>11</td>
+                            <td>1011</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>4</td>
+                            <td>0100</td>
+                            <td>C</td>
+                            <td>12</td>
+                            <td>1100</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>5</td>
+                            <td>0101</td>
+                            <td>D</td>
+                            <td>13</td>
+                            <td>1101</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>6</td>
+                            <td>0110</td>
+                            <td>E</td>
+                            <td>14</td>
+                            <td>1110</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>7</td>
+                            <td>0111</td>
+                            <td>F</td>
+                            <td>15</td>
+                            <td>1111</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>Hexadecimal-to-Binary Quick Reference</h3>
+                    <p>Tip: Each hexadecimal digit = 4 binary digits</p>
+                </div>
+            </div>
+
+            <!-- NEW ANIMATED DIVISION SECTION -->
+            <div id="animated-division" class="section">
+                <h2 class="section-title">The Repeated Division Method</h2>
+
+                <div class="subsection" style="border-left: 4px solid #ef5350;">
+                    <h3>How to Convert Decimal to ANY Base</h3>
+                    <p>To convert a normal Decimal number into Binary, Octal, or Hexadecimal, we use the <strong>Repeated Division Method</strong>. This method works the exact same way for every target base!</p>
+                    
+                    <div class="conversion-method" style="background: #ffebee; border-left: 4px solid #ef5350;">
+                        <h4 style="color: #c62828;">The 4 Core Steps:</h4>
+                        <div class="step"><strong>Step 1:</strong> Set up a division ladder. Divide your decimal number by the target base (2, 8, or 16).</div>
+                        <div class="step"><strong>Step 2:</strong> Write the quotient (the whole number result) underneath.</div>
+                        <div class="step"><strong>Step 3:</strong> Write the <strong>Remainder</strong> out to the side. (This is the most important part!)</div>
+                        <div class="step"><strong>Step 4:</strong> Repeat until the quotient reaches 0. Finally, read the remainders from <strong>BOTTOM to TOP</strong>.</div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Interactive Division Diagram Simulator</h3>
+                    <p>Enter a Decimal number below and click "Animate Division" to see exactly how it works on paper.</p>
+
+                    <div class="anim-controls">
+                        <div class="input-group" style="margin: 0; flex: 1;">
+                            <label for="animDecInput">Decimal Number:</label>
+                            <input type="number" id="animDecInput" placeholder="e.g., 25" min="0" value="25">
+                        </div>
+                        <div class="input-group" style="margin: 0; flex: 1;">
+                            <label for="animBaseSelect">Target Base (Divisor):</label>
+                            <select id="animBaseSelect">
+                                <option value="2">Binary (÷ 2)</option>
+                                <option value="8">Octal (÷ 8)</option>
+                                <option value="16">Hexadecimal (÷ 16)</option>
+                            </select>
+                        </div>
+                        <button onclick="playDivisionAnimation()" style="padding: 12px 25px; font-weight: bold; flex: 1;">▶ Animate Division</button>
+                    </div>
+
+                    <div class="anim-workspace">
+                        <div id="animContainer" style="width: 100%; display: flex; flex-direction: column; align-items: center; position: relative;">
+                            <p style="color: #888; text-align: center; font-style: italic;">Results will animate here...</p>
+                        </div>
+                        
+                        <!-- Animated arrow pointing up -->
+                        <div id="animArrow" class="read-up-arrow">
+                            <div class="head"></div>
+                            <div class="line"></div>
+                            <span>Read Bottom to Top</span>
+                        </div>
+
+                        <div id="animFinalAnswer" class="final-animation-result"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONVERSIONS SECTION -->
+            <div id="conversions" class="section">
+                <h2 class="section-title">Other Conversion Methods</h2>
+
+                <div class="subsection">
+                    <h3>Method 1: ANY Base to Decimal (Using Positional Notation)</h3>
+                    <div class="conversion-method">
+                        <h4>Steps:</h4>
+                        <div class="step"><strong>Step 1:</strong> List each digit with its power of the base</div>
+                        <div class="step"><strong>Step 2:</strong> Convert each digit to decimal</div>
+                        <div class="step"><strong>Step 3:</strong> Multiply digit by its power value</div>
+                        <div class="step"><strong>Step 4:</strong> Add all the results</div>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Example: Convert 10110₂ to Decimal</strong>
+                        <p>Position: 4 3 2 1 0</p>
+                        <p>Number:  1 0 1 1 0</p>
+                        <p>Power:   2⁴ 2³ 2² 2¹ 2⁰</p>
+                        <p>= (1 × 16) + (0 × 8) + (1 × 4) + (1 × 2) + (0 × 1)</p>
+                        <p>= 16 + 0 + 4 + 2 + 0</p>
+                        <p><strong>= 22₁₀</strong></p>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Example: Convert 1A3₁₆ to Decimal</strong>
+                        <p>Position: 2 1 0</p>
+                        <p>Number:   1 A 3</p>
+                        <p>Decimal:  1 10 3</p>
+                        <p>Power:    16² 16¹ 16⁰</p>
+                        <p>= (1 × 256) + (10 × 16) + (3 × 1)</p>
+                        <p>= 256 + 160 + 3</p>
+                        <p><strong>= 419₁₀</strong></p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Method 2: Binary ↔ Octal (Direct Conversion)</h3>
+                    <div class="conversion-method">
+                        <h4>Binary to Octal:</h4>
+                        <div class="step"><strong>Step 1:</strong> Group binary digits into 3s from the right</div>
+                        <div class="step"><strong>Step 2:</strong> Convert each group to its octal digit</div>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Example: Convert 111101101₂ to Octal</strong>
+                        <p>Group: 111 | 101 | 101</p>
+                        <p>Octal: 7 | 5 | 5</p>
+                        <p><strong>= 755₈</strong></p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Method 3: Binary ↔ Hexadecimal (Direct Conversion)</h3>
+                    <div class="conversion-method">
+                        <h4>Binary to Hexadecimal:</h4>
+                        <div class="step"><strong>Step 1:</strong> Group binary digits into 4s from the right</div>
+                        <div class="step"><strong>Step 2:</strong> Convert each group to its hex digit</div>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Example: Convert 11110101₂ to Hexadecimal</strong>
+                        <p>Group: 1111 | 0101</p>
+                        <p>Hex: F | 5</p>
+                        <p><strong>= F5₁₆</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONVERTER TOOL SECTION -->
+            <div id="converter" class="section">
+                <h2 class="section-title">Interactive Converter Tool</h2>
+
+                <div class="converter">
+                    <h3>🔄 Number Base Converter</h3>
+
+                    <div class="input-group">
+                        <label for="inputNumber">Enter a Number:</label>
+                        <input type="text" id="inputNumber" placeholder="e.g., 255 or FF or 11111111" value="">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="sourceBase">From Base:</label>
+                        <select id="sourceBase">
+                            <option value="10">Decimal (Base 10)</option>
+                            <option value="2">Binary (Base 2)</option>
+                            <option value="8">Octal (Base 8)</option>
+                            <option value="16">Hexadecimal (Base 16)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="targetBase">To Base:</label>
+                        <select id="targetBase">
+                            <option value="2">Binary (Base 2)</option>
+                            <option value="8">Octal (Base 8)</option>
+                            <option value="10" selected>Decimal (Base 10)</option>
+                            <option value="16">Hexadecimal (Base 16)</option>
+                        </select>
+                    </div>
+
+                    <div class="button-group">
+                        <button onclick="convertNumber()">Convert</button>
+                        <button onclick="clearConverter()">Clear</button>
+                    </div>
+
+                    <div id="conversionResult" class="result">
+                        <div id="resultContent"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXERCISES SECTION -->
+            <div id="exercises" class="section">
+                <h2 class="section-title">Practice Exercises</h2>
+
+                <div class="exercise-section">
+                    <h3>🎯 Beginner Exercises</h3>
+
+                    <div class="exercise-item">
+                        <div class="question">Exercise 1: Convert 1010₂ to Decimal</div>
+                        <div class="answer hidden" onclick="toggleAnswer(this)">
+                            ✓ Answer: Click to reveal
+                            <div style="margin-top: 10px; display: none;">
+                                1 × 2³ + 0 × 2² + 1 × 2¹ + 0 × 2⁰ = 8 + 0 + 2 + 0 = <strong>10₁₀</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <div class="question">Exercise 2: Convert 5₁₀ to Binary</div>
+                        <div class="answer hidden" onclick="toggleAnswer(this)">
+                            ✓ Answer: Click to reveal
+                            <div style="margin-top: 10px; display: none;">
+                                5 ÷ 2 = 2 R 1<br>
+                                2 ÷ 2 = 1 R 0<br>
+                                1 ÷ 2 = 0 R 1<br>
+                                Read bottom to top: <strong>101₂</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-section" style="margin-top: 30px;">
+                    <h3>🎯 Intermediate Exercises</h3>
+
+                    <div class="exercise-item">
+                        <div class="question">Exercise 3: Convert 156₁₀ to Binary</div>
+                        <div class="answer hidden" onclick="toggleAnswer(this)">
+                            ✓ Answer: Click to reveal
+                            <div style="margin-top: 10px; display: none;">
+                                156 ÷ 2 = 78 R 0<br>
+                                78 ÷ 2 = 39 R 0<br>
+                                39 ÷ 2 = 19 R 1<br>
+                                19 ÷ 2 = 9 R 1<br>
+                                9 ÷ 2 = 4 R 1<br>
+                                4 ÷ 2 = 2 R 0<br>
+                                2 ÷ 2 = 1 R 0<br>
+                                1 ÷ 2 = 0 R 1<br>
+                                Result: <strong>10011100₂</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <div class="question">Exercise 4: Convert 2A5₁₆ to Decimal</div>
+                        <div class="answer hidden" onclick="toggleAnswer(this)">
+                            ✓ Answer: Click to reveal
+                            <div style="margin-top: 10px; display: none;">
+                                2 × 256 + 10 × 16 + 5 × 1<br>
+                                = 512 + 160 + 5 = <strong>677₁₀</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Number Systems Learning Guide | Nirmal Adhikari</p>
+        </div>
+    </div>
+
+    <script>
+        // Navigation Tab Logic
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                
+                document.getElementById(sectionId).classList.add('active');
+                this.classList.add('active');
+                
+                window.scrollTo(0, 0);
+            });
+        });
+
+        // Basic Converter Tool
+        function convertNumber() {
+            const inputNumber = document.getElementById('inputNumber').value.trim();
+            const sourceBase = parseInt(document.getElementById('sourceBase').value);
+            const targetBase = parseInt(document.getElementById('targetBase').value);
+            const resultDiv = document.getElementById('conversionResult');
+            const resultContent = document.getElementById('resultContent');
+
+            if (!inputNumber) {
+                resultContent.innerHTML = '<p style="color: red;">❌ Please enter a number</p>';
+                resultDiv.classList.add('show');
+                return;
+            }
+
+            try {
+                const decimal = parseInt(inputNumber, sourceBase);
+                if (isNaN(decimal)) {
+                    resultContent.innerHTML = '<p style="color: red;">❌ Invalid input for the selected base</p>';
+                    resultDiv.classList.add('show');
+                    return;
+                }
+
+                let result = '';
+                if (targetBase === 10) result = decimal.toString();
+                else if (targetBase === 2) result = decimal.toString(2);
+                else if (targetBase === 8) result = decimal.toString(8);
+                else if (targetBase === 16) result = decimal.toString(16).toUpperCase();
+
+                resultContent.innerHTML = `
+                    <div class="result-item"><strong>Input:</strong> ${inputNumber} (Base ${sourceBase})</div>
+                    <div class="result-item"><strong>Decimal equivalent:</strong> ${decimal}</div>
+                    <div class="result-item" style="background: #c8e6c9;"><strong>Result:</strong> ${result} (Base ${targetBase})</div>
+                `;
+                resultDiv.classList.add('show');
+            } catch (e) {
+                resultContent.innerHTML = '<p style="color: red;">❌ Conversion error.</p>';
+                resultDiv.classList.add('show');
+            }
+        }
+
+        function clearConverter() {
+            document.getElementById('inputNumber').value = '';
+            document.getElementById('conversionResult').classList.remove('show');
+        }
+
+        function toggleAnswer(element) {
+            const answerDiv = element.querySelector('div');
+            if (answerDiv) {
+                answerDiv.style.display = answerDiv.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        // --- NEW: ANIMATED DIVISION LOGIC --- //
+        async function playDivisionAnimation() {
+            const numInput = document.getElementById('animDecInput').value;
+            const base = parseInt(document.getElementById('animBaseSelect').value);
+            const container = document.getElementById('animContainer');
+            const arrow = document.getElementById('animArrow');
+            const finalAns = document.getElementById('animFinalAnswer');
+            
+            let num = parseInt(numInput);
+            if (isNaN(num) || num < 0) {
+                alert("Please enter a valid positive decimal number.");
+                return;
+            }
+
+            // Reset workspace
+            container.innerHTML = '';
+            arrow.style.display = 'none';
+            finalAns.innerHTML = '';
+            finalAns.classList.remove('show');
+            
+            // Calculate steps algorithmically
+            let steps = [];
+            let temp = num;
+            
+            if (temp === 0) {
+                steps.push({ current: 0, quotient: 0, remainder: 0 });
+            } else {
+                while (temp > 0) {
+                    let rem = temp % base;
+                    let quot = Math.floor(temp / base);
+                    steps.push({ current: temp, quotient: quot, remainder: rem });
+                    temp = quot;
+                }
+            }
+
+            // Also render the final '0' state correctly
+            if(steps.length > 0 && steps[steps.length-1].quotient !== 0) {
+                // This shouldn't hit with the while loop above, but safety first
+            } else if (steps.length > 0 && num !== 0) {
+                // We add the final row where it divides 0 by base
+                steps.push({ current: 0, quotient: 0, remainder: null });
+            }
+
+            let rems = [];
+
+            // Execute Animation Loop
+            for (let i = 0; i < steps.length; i++) {
+                let s = steps[i];
+                
+                // Stop rendering if it's the terminal 0 row, we just need the 0 to show as quotient in prev row
+                if (s.remainder === null) {
+                    let finalRow = document.createElement('div');
+                    finalRow.className = 'div-row';
+                    finalRow.innerHTML = `
+                        <div class="div-divisor"></div>
+                        <div class="div-number" style="border: none;">0</div>
+                        <div class="div-remainder" style="color: transparent;"></div>
+                    `;
+                    container.appendChild(finalRow);
+                    await new Promise(r => setTimeout(r, 100));
+                    finalRow.classList.add('show');
+                    break;
+                }
+
+                let hexRem = s.remainder;
+                if (base === 16 && hexRem >= 10) {
+                    hexRem = String.fromCharCode(55 + hexRem); // 10 -> A, 11 -> B, etc.
+                    hexRem = `${s.remainder} = ${hexRem}`; // Show both for teaching
+                }
+                
+                let rawRem = s.remainder;
+                if (base === 16 && rawRem >= 10) rawRem = String.fromCharCode(55 + rawRem);
+                rems.push(rawRem);
+
+                let row = document.createElement('div');
+                row.className = 'div-row';
+                row.innerHTML = `
+                    <div class="div-divisor">${base}</div>
+                    <div class="div-number">${s.current}</div>
+                    <div class="div-remainder">${hexRem}</div>
+                `;
+                
+                container.appendChild(row);
+                
+                // Allow DOM to update, then trigger CSS transition
+                await new Promise(r => setTimeout(r, 100)); 
+                row.classList.add('show');
+                
+                // Wait for the student to read the step before showing next
+                await new Promise(r => setTimeout(r, 800)); 
+            }
+            
+            // Show the "Read up" arrow
+            arrow.style.display = 'flex';
+            await new Promise(r => setTimeout(r, 1200));
+
+            // Show final answer
+            let finalStr = rems.reverse().join('');
+            let baseLabel = base === 2 ? '₂' : (base === 8 ? '₈' : '₁₆');
+            finalAns.innerHTML = `Final Answer: <strong style="color: white; background: #ef5350; padding: 5px 15px; border-radius: 5px; margin: 0 10px;">${finalStr}</strong><sub>${baseLabel}</sub>`;
+            finalAns.classList.add('show');
+        }
+    </script>
+</body>
+</html>
